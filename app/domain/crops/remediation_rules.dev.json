@@ -1,0 +1,114 @@
+{
+  "_meta": {
+    "is_demo": true,
+    "note": "File pengembangan. Dosis adalah contoh, BUKAN acuan."
+  },
+  "ph": {
+    "low": [
+      {
+        "material": "kapur dolomit",
+        "household": false,
+        "dose": 10,
+        "unit": "gram",
+        "per": "pot 10 liter",
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "notes": "Aduk rata dengan tanah lalu siram."
+      },
+      {
+        "material": "abu kayu",
+        "household": true,
+        "dose": 20,
+        "unit": "gram",
+        "per": "pot 10 liter",
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "notes": "Taburkan tipis lalu aduk."
+      },
+      {
+        "material": "cangkang telur halus",
+        "household": true,
+        "dose": null,
+        "unit": null,
+        "per": null,
+        "source": null,
+        "notes": "Contoh opsi tanpa sumber: tidak boleh muncul."
+      }
+    ],
+    "high": [
+      {
+        "material": "belerang (sulfur)",
+        "household": false,
+        "dose": 5,
+        "unit": "gram",
+        "per": "pot 10 liter",
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "notes": "Aduk ke lapisan atas tanah."
+      },
+      {
+        "material": "ampas kopi",
+        "household": true,
+        "dose": 50,
+        "unit": "gram",
+        "per": "pot 10 liter",
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "notes": "Campurkan ke tanah bagian atas."
+      }
+    ]
+  },
+  "moisture": {
+    "low": [
+      {
+        "material": "air siraman",
+        "household": true,
+        "dose": 500,
+        "unit": "ml",
+        "per": "pot 10 liter",
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "notes": "Siram pagi atau sore."
+      },
+      {
+        "material": "mulsa jerami",
+        "household": true,
+        "dose": 2,
+        "unit": "cm tebal",
+        "per": "permukaan pot",
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "notes": "Mengurangi penguapan."
+      }
+    ],
+    "high": [
+      {
+        "material": "sekam bakar",
+        "household": true,
+        "dose": 1,
+        "unit": "genggam",
+        "per": "pot 10 liter",
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "notes": "Campur ke tanah agar drainase lebih baik."
+      }
+    ]
+  },
+  "temperature": {
+    "low": [
+      {
+        "material": "pindahkan pot ke tempat lebih hangat",
+        "household": true,
+        "dose": null,
+        "unit": null,
+        "per": null,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "notes": null
+      }
+    ],
+    "high": [
+      {
+        "material": "mulsa jerami",
+        "household": true,
+        "dose": 2,
+        "unit": "cm tebal",
+        "per": "permukaan pot",
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "notes": "Menahan panas permukaan."
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+# Rahasia (JANGAN di-commit)
+.env
+.env.*
+!.env.example
+firebase-service-account*.json
+*.pem
+*.key
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Test & tooling
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Database lokal (SQLite dev/test)
+*.db
+*.db-journal
+*.sqlite3
+
+# Output skrip riset (python tests/agent_eval/run_eval.py --out ...)
+tests/agent_eval/*.json
+*.log
+
+# Editor / OS
+.vscode/
+.idea/
+.claude/settings.local.json
+Thumbs.db
+desktop.ini
+.DS_Store

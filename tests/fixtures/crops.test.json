@@ -1,0 +1,39 @@
+{
+  "_meta": {"is_demo": true, "note": "Data uji unit. Angka sengaja sederhana agar mudah dihitung; bukan acuan agronomi."},
+  "alpha": {
+    "display_name": "Alpha",
+    "params": {
+      "ph":          {"abs_min": 4.0, "opt_min": 5.5, "opt_max": 7.0, "abs_max": 8.5, "source": "TEST"},
+      "moisture":    {"abs_min": 20, "opt_min": 40, "opt_max": 60, "abs_max": 80, "source": "TEST"},
+      "temperature": {"abs_min": 10, "opt_min": 20, "opt_max": 30, "abs_max": 40, "source": "TEST"}
+    },
+    "light": {"allowed": ["full", "partial"], "source": "TEST"}
+  },
+  "beta": {
+    "display_name": "Beta",
+    "params": {
+      "ph":          {"abs_min": 5.0, "opt_min": 6.0, "opt_max": 7.0, "abs_max": 8.0, "source": "TEST"},
+      "moisture":    {"abs_min": null, "opt_min": null, "opt_max": null, "abs_max": null, "source": null},
+      "temperature": {"abs_min": 10, "opt_min": 18, "opt_max": 28, "abs_max": 35, "source": "TEST"}
+    },
+    "light": {"allowed": ["full"], "source": "TEST"}
+  },
+  "gamma": {
+    "display_name": "Gamma",
+    "params": {
+      "ph":          {"abs_min": 4.5, "opt_min": 5.0, "opt_max": 6.5, "abs_max": 7.5, "source": "TEST"},
+      "moisture":    {"abs_min": 30, "opt_min": 50, "opt_max": 70, "abs_max": 90, "source": "TEST"},
+      "temperature": {"abs_min": 0, "opt_min": 15, "opt_max": 25, "abs_max": 35, "source": null}
+    },
+    "light": {"allowed": ["partial", "shade"], "source": "TEST"}
+  },
+  "delta": {
+    "display_name": "Delta",
+    "params": {
+      "ph":          {"abs_min": null, "opt_min": null, "opt_max": null, "abs_max": null, "source": null},
+      "moisture":    {"abs_min": null, "opt_min": null, "opt_max": null, "abs_max": null, "source": null},
+      "temperature": {"abs_min": null, "opt_min": null, "opt_max": null, "abs_max": null, "source": null}
+    },
+    "light": {"allowed": [], "source": null}
+  }
+}

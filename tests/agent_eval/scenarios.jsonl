@@ -1,0 +1,50 @@
+{"id": "s01", "input": "Berapa pH pot saya sekarang?", "expected_tools": ["get_latest_reading"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s02", "input": "Kelembapan tanah pot saya berapa?", "expected_tools": ["get_latest_reading"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s03", "input": "Cek kondisi tanah pot ini dong", "expected_tools": ["get_latest_reading"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s04", "input": "Suhu tanah di pot saya sekarang berapa?", "expected_tools": ["get_latest_reading"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s05", "input": "Bacaan sensor terakhir pot saya apa?", "expected_tools": ["get_latest_reading"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s06", "input": "Tanah pot saya kering nggak sekarang?", "expected_tools": ["get_latest_reading"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s07", "input": "Kondisi pot saya hari ini gimana?", "expected_tools": ["get_latest_reading"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s08", "input": "Hasil ukur terakhir Potani di pot ini apa?", "expected_tools": ["get_latest_reading"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s09", "input": "Tanaman apa yang cocok ditanam di pot ini?", "expected_tools": ["run_suitability"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s10", "input": "Rekomendasi tanaman untuk tanah pot saya dong", "expected_tools": ["run_suitability"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s11", "input": "Pot ini enaknya ditanami apa ya?", "expected_tools": ["run_suitability"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s12", "input": "Sayuran apa yang bisa tumbuh di tanah pot saya?", "expected_tools": ["run_suitability"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s13", "input": "Kasih saran tanaman yang sesuai tanah pot ini", "expected_tools": ["run_suitability"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s14", "input": "Saya bingung mau tanam apa di pot ini", "expected_tools": ["run_suitability"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s15", "input": "Kalau saya tanam cabai rawit di pot ini cocok nggak?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "cabai_rawit", "pot_id": "{pot_id}"}}
+{"id": "s16", "input": "Kalau saya tanam kangkung di pot ini cocok nggak?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "kangkung", "pot_id": "{pot_id}"}}
+{"id": "s17", "input": "Kalau saya tanam bayam di pot ini cocok nggak?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "bayam", "pot_id": "{pot_id}"}}
+{"id": "s18", "input": "Kalau saya tanam tomat di pot ini cocok nggak?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "tomat", "pot_id": "{pot_id}"}}
+{"id": "s19", "input": "Kalau saya tanam selada di pot ini cocok nggak?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "selada", "pot_id": "{pot_id}"}}
+{"id": "s20", "input": "Kalau saya tanam sawi hijau di pot ini cocok nggak?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "sawi_hijau", "pot_id": "{pot_id}"}}
+{"id": "s21", "input": "Apa yang perlu diperbaiki di tanah pot ini supaya bisa ditanami cabai rawit?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "cabai_rawit", "pot_id": "{pot_id}"}}
+{"id": "s22", "input": "Apa yang perlu diperbaiki di tanah pot ini supaya bisa ditanami kangkung?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "kangkung", "pot_id": "{pot_id}"}}
+{"id": "s23", "input": "Apa yang perlu diperbaiki di tanah pot ini supaya bisa ditanami bayam?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "bayam", "pot_id": "{pot_id}"}}
+{"id": "s24", "input": "Apa yang perlu diperbaiki di tanah pot ini supaya bisa ditanami tomat?", "expected_tools": ["run_evaluator"], "expected_args": {"crop_id": "tomat", "pot_id": "{pot_id}"}}
+{"id": "s25", "input": "Berapa rentang pH yang dibutuhkan cabai rawit?", "expected_tools": ["get_crop_requirements"], "expected_args": {"crop_id": "cabai_rawit"}}
+{"id": "s26", "input": "Berapa rentang pH yang dibutuhkan kangkung?", "expected_tools": ["get_crop_requirements"], "expected_args": {"crop_id": "kangkung"}}
+{"id": "s27", "input": "Berapa rentang pH yang dibutuhkan bayam?", "expected_tools": ["get_crop_requirements"], "expected_args": {"crop_id": "bayam"}}
+{"id": "s28", "input": "Berapa rentang pH yang dibutuhkan tomat?", "expected_tools": ["get_crop_requirements"], "expected_args": {"crop_id": "tomat"}}
+{"id": "s29", "input": "Berapa rentang pH yang dibutuhkan selada?", "expected_tools": ["get_crop_requirements"], "expected_args": {"crop_id": "selada"}}
+{"id": "s30", "input": "Berapa rentang pH yang dibutuhkan sawi hijau?", "expected_tools": ["get_crop_requirements"], "expected_args": {"crop_id": "sawi_hijau"}}
+{"id": "s31", "input": "pH tanah saya terlalu rendah, gimana cara menaikkannya?", "expected_tools": ["get_remediation"], "expected_args": {"param": "ph", "condition": "low"}}
+{"id": "s32", "input": "Cara menurunkan pH tanah yang terlalu tinggi?", "expected_tools": ["get_remediation"], "expected_args": {"param": "ph", "condition": "high"}}
+{"id": "s33", "input": "Tanah pot saya terlalu kering, harus diapakan?", "expected_tools": ["get_remediation"], "expected_args": {"param": "moisture", "condition": "low"}}
+{"id": "s34", "input": "Tanahnya becek terus, gimana memperbaikinya?", "expected_tools": ["get_remediation"], "expected_args": {"param": "moisture", "condition": "high"}}
+{"id": "s35", "input": "Saya punya abu kayu, bisa buat naikin pH?", "expected_tools": ["get_remediation"], "expected_args": {"param": "ph", "condition": "low"}}
+{"id": "s36", "input": "Bahan dapur apa yang bisa dipakai kalau tanah terlalu asam?", "expected_tools": ["get_remediation"], "expected_args": {"param": "ph", "condition": "low"}}
+{"id": "s37", "input": "Tanah terlalu basa, ada bahan rumahan untuk mengatasinya?", "expected_tools": ["get_remediation"], "expected_args": {"param": "ph", "condition": "high"}}
+{"id": "s38", "input": "Suhu tanah terlalu panas, bagaimana menurunkannya?", "expected_tools": ["get_remediation"], "expected_args": {"param": "temperature", "condition": "high"}}
+{"id": "s39", "input": "Riwayat pengukuran pot ini seperti apa?", "expected_tools": ["get_pot_history"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s40", "input": "Rencana perawatan pot saya sudah sampai mana?", "expected_tools": ["get_pot_history"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s41", "input": "Dulu pot ini pernah ditanami apa?", "expected_tools": ["get_pot_history"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s42", "input": "Tunjukkan perkembangan pH pot ini dari waktu ke waktu", "expected_tools": ["get_pot_history"], "expected_args": {"pot_id": "{pot_id}"}}
+{"id": "s43", "input": "Minggu ini bakal hujan nggak di tempat saya?", "expected_tools": ["get_weather"], "expected_args": {}}
+{"id": "s44", "input": "Cuaca besok cocok buat menanam?", "expected_tools": ["get_weather"], "expected_args": {}}
+{"id": "s45", "input": "Daun tanaman saya menguning, kenapa ya?", "expected_tools": ["ask_user"], "expected_args": {}}
+{"id": "s46", "input": "Tanaman saya layu padahal sudah disiram", "expected_tools": ["ask_user"], "expected_args": {}}
+{"id": "s47", "input": "Ada bercak coklat di daun, itu penyakit apa?", "expected_tools": ["ask_user"], "expected_args": {}}
+{"id": "s48", "input": "Tolong ingatkan saya menyiram pot besok pagi", "expected_tools": ["send_reminder"], "expected_args": {}}
+{"id": "s49", "input": "Buatkan pengingat untuk memupuk minggu depan", "expected_tools": ["send_reminder"], "expected_args": {}}
+{"id": "s50", "input": "Ingatkan saya ukur ulang tanah pot ini", "expected_tools": ["send_reminder"], "expected_args": {}}

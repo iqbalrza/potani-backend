@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konsol Test Potani</title>
+<style>
+:root {
+  --bg: #f6f7f4; --surface: #ffffff; --surface-2: #eef1ea; --border: #dde2d6;
+  --text: #1d2318; --muted: #5f6b57; --accent: #2f7a3d; --accent-ink: #ffffff; --accent-soft: #e2f0e2;
+  --warn: #9a6400; --warn-soft: #fbefd6; --bad: #b3261e; --bad-soft: #fbe3e1; --info: #255f9e; --info-soft: #e1ecf8;
+  --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --radius: 10px; --shadow: 0 1px 2px rgb(0 0 0 / .06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12150f; --surface: #1a1e16; --surface-2: #22281d; --border: #313a2a;
+    --text: #e6eadf; --muted: #9aa58f; --accent: #6cc17a; --accent-ink: #0d1a0f; --accent-soft: #1f3322;
+    --warn: #e7b14d; --warn-soft: #3a2d12; --bad: #ff8a80; --bad-soft: #3d1c1a; --info: #8cb8ec; --info-soft: #1a2a3d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12150f; --surface: #1a1e16; --surface-2: #22281d; --border: #313a2a;
+  --text: #e6eadf; --muted: #9aa58f; --accent: #6cc17a; --accent-ink: #0d1a0f; --accent-soft: #1f3322;
+  --warn: #e7b14d; --warn-soft: #3a2d12; --bad: #ff8a80; --bad-soft: #3d1c1a; --info: #8cb8ec; --info-soft: #1a2a3d;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--text); font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+button, input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3 { margin: 0; line-height: 1.25; }
+h2 { font-size: 18px; } h3 { font-size: 15px; }
+p { margin: 0; }
+code, pre { font-family: var(--mono); font-size: 12px; }
+
+header { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center;
+  padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 650; }
+.brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.header-fields { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; flex: 1; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); min-height: calc(100vh - 57px); }
+nav { border-right: 1px solid var(--border); padding: 12px 8px; background: var(--surface); }
+nav button { display: flex; width: 100%; gap: 8px; align-items: baseline; text-align: left; border: 0; background: none;
+  padding: 8px 10px; border-radius: 8px; cursor: pointer; color: var(--muted); }
+nav button .n { font-family: var(--mono); font-size: 11px; opacity: .7; }
+nav button:hover { background: var(--surface-2); color: var(--text); }
+nav button[aria-current="true"] { background: var(--accent-soft); color: var(--text); font-weight: 600; }
+main { padding: 20px 20px 120px; max-width: 1100px; width: 100%; }
+section.view { display: none; } section.view.active { display: block; }
+.view-head { margin-bottom: 14px; } .view-head p { color: var(--muted); margin-top: 4px; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; box-shadow: var(--shadow); margin-bottom: 14px; }
+.card > h3 { margin-bottom: 10px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.grid2 > .card { margin-bottom: 0; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
+.stack { display: grid; gap: 8px; }
+label.f { display: grid; gap: 3px; font-size: 12px; color: var(--muted); min-width: 0; }
+input, select, textarea { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 7px 9px; min-width: 0; }
+input[type=number] { width: 96px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.btn { border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 7px 12px; cursor: pointer; white-space: nowrap; }
+.btn:hover { background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.btn.primary:hover { filter: brightness(1.05); }
+.btn.small { padding: 3px 8px; font-size: 12px; }
+.btn:disabled { opacity: .5; cursor: progress; }
+
+.chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 2px 9px; font-size: 12px;
+  background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); white-space: nowrap; }
+.chip.ok { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.chip.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.chip.bad { background: var(--bad-soft); color: var(--bad); border-color: transparent; }
+.chip.info { background: var(--info-soft); color: var(--info); border-color: transparent; }
+.muted { color: var(--muted); } .small { font-size: 12px; }
+.note { padding: 10px 12px; border-radius: 8px; background: var(--surface-2); color: var(--muted); }
+.note.warn { background: var(--warn-soft); color: var(--warn); }
+.note.info { background: var(--info-soft); color: var(--info); }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 600; }
+td.num { font-variant-numeric: tabular-nums; }
+.bar { height: 6px; background: var(--surface-2); border-radius: 3px; min-width: 70px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); }
+
+.states { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.states .arrow { color: var(--muted); }
+.list-item { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); }
+.list-item:last-child { border-bottom: 0; }
+ol.steps { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+
+.chat { display: grid; gap: 10px; max-height: 55vh; overflow-y: auto; padding: 4px; }
+.msg { max-width: 80%; padding: 9px 12px; border-radius: 12px; white-space: pre-wrap; }
+.msg.user { justify-self: end; background: var(--accent); color: var(--accent-ink); }
+.msg.bot { justify-self: start; background: var(--surface-2); }
+.msg .trace { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+
+details > summary { cursor: pointer; }
+pre.json { background: var(--surface-2); border-radius: 8px; padding: 8px; overflow: auto; max-height: 280px; margin: 6px 0 0; white-space: pre-wrap; word-break: break-word; }
+
+#drawer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--border); }
+#drawer > summary { padding: 8px 16px; font-size: 13px; color: var(--muted); list-style: none; display: flex; gap: 8px; align-items: center; }
+#drawer > summary::-webkit-details-marker { display: none; }
+#reqlog { max-height: 40vh; overflow-y: auto; padding: 0 16px 12px; }
+#reqlog .req { border-bottom: 1px solid var(--border); padding: 6px 0; }
+#reqlog .req summary { display: flex; gap: 8px; align-items: center; font-family: var(--mono); font-size: 12px; }
+
+#toast { position: fixed; right: 16px; bottom: 56px; z-index: 9; display: grid; gap: 8px; max-width: min(380px, calc(100vw - 32px)); }
+#toast div { padding: 10px 12px; border-radius: 8px; box-shadow: 0 4px 14px rgb(0 0 0 / .15); background: var(--surface); border: 1px solid var(--border); }
+#toast div.bad { border-color: var(--bad); } #toast div.ok { border-color: var(--accent); }
+
+.layout > * { min-width: 0; }
+@media (max-width: 760px) {
+  header { position: static; }
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  nav { display: flex; overflow-x: auto; gap: 4px; border-right: 0; border-bottom: 1px solid var(--border); padding: 8px; position: sticky; top: 0; z-index: 4; }
+  nav button { width: auto; white-space: nowrap; }
+  main { padding: 16px 16px 120px; }
+  .btn { white-space: normal; }
+  .row > label.f { flex: 1 1 120px; }
+  input[type=number] { width: 100%; }
+  .grid2 { grid-template-columns: 1fr; }
+  .msg { max-width: 92%; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="dot"></span>Konsol Test Potani</div>
+  <div class="header-fields">
+    <label class="f">Pengguna (token dev)
+      <input id="uid" value="demo" size="10" aria-label="UID pengguna">
+    </label>
+    <label class="f">Pot aktif
+      <select id="potSelect" aria-label="Pot aktif"><option value="">(belum ada pot)</option></select>
+    </label>
+  </div>
+  <div class="chips" id="health"></div>
+  <button class="btn small" id="themeBtn" title="Ganti tema">Tema</button>
+</header>
+
+<div class="layout">
+  <nav id="nav">
+    <button data-view="start"><span class="n">1</span>Mulai</button>
+    <button data-view="pots"><span class="n">2</span>Pot &amp; perangkat</button>
+    <button data-view="measure"><span class="n">3</span>Ukur (simulasi probe)</button>
+    <button data-view="recommend"><span class="n">4</span>Rekomendasi (F2)</button>
+    <button data-view="evaluate"><span class="n">5</span>Evaluasi (F3)</button>
+    <button data-view="plans"><span class="n">6</span>Rencana &amp; checkpoint (F6)</button>
+    <button data-view="chat"><span class="n">7</span>TaniBot (F7)</button>
+    <button data-view="logs"><span class="n">8</span>Log agent</button>
+  </nav>
+
+  <main>
+    <!-- 1 MULAI -->
+    <section class="view" id="view-start">
+      <div class="view-head"><h2>Mulai</h2>
+        <p>Konsol ini memanggil API backend yang sama dengan aplikasi mobile. Hanya aktif di mode dev.</p></div>
+      <div class="card">
+        <h3>Persiapan cepat</h3>
+        <p class="muted" style="margin-bottom:10px">Memasangkan perangkat <code>potani-demo-01</code> dan membuat satu pot bercahaya penuh bila belum ada.</p>
+        <div class="row"><button class="btn primary" id="quickSetup">Siapkan data demo</button></div>
+      </div>
+      <div class="card">
+        <h3>Alur test yang disarankan</h3>
+        <ol class="steps">
+          <li><b>Ukur</b>: kirim bacaan tahap <code>pre_plant</code> lewat sesi.</li>
+          <li><b>Rekomendasi</b>: lihat kandidat, lalu pilih tanaman. Bila ada parameter di luar optimal, rencana dibuat.</li>
+          <li><b>Rencana</b>: tandai dikerjakan, majukan checkpoint, jalankan job scheduler.</li>
+          <li><b>Ukur</b> ulang tahap <code>post_remediation</code>, lalu jalankan <code>run_verify_queue</code> untuk melihat ACHIEVED atau REPLANNING.</li>
+          <li><b>TaniBot</b> dan <b>Log agent</b> untuk melihat tool yang dipanggil.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Profil (memori jangka panjang)</h3>
+        <div class="row">
+          <label class="f">Nama <input id="meName" size="14"></label>
+          <label class="f">Cahaya default
+            <select id="meLight"><option value="">-</option><option value="full">full</option><option value="partial">partial</option><option value="shade">shade</option></select></label>
+          <label class="f">Wadah default <input id="meContainer" size="12"></label>
+          <label class="f" style="flex:1;min-width:200px">Bahan yang dimiliki (pisahkan koma) <input id="meMaterials" placeholder="abu kayu, kapur dolomit"></label>
+          <button class="btn" id="meSave">Simpan profil</button>
+        </div>
+      </div>
+      <div class="card"><h3>Status sistem</h3><div id="healthDetail" class="muted">Memuat…</div></div>
+    </section>
+
+    <!-- 2 POT & PERANGKAT -->
+    <section class="view" id="view-pots">
+      <div class="view-head"><h2>Pot &amp; perangkat</h2></div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Perangkat</h3>
+          <div id="deviceList" class="muted">-</div>
+          <div class="row" style="margin-top:10px">
+            <label class="f">device_id <input id="pairId" value="potani-demo-01" size="16"></label>
+            <button class="btn" id="pairBtn">Pasangkan</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Buat pot</h3>
+          <div class="row">
+            <label class="f">Nama <input id="newPotName" value="Pot Teras" size="12"></label>
+            <label class="f">Cahaya <select id="newPotLight"><option value="">(kosong)</option><option value="full" selected>full</option><option value="partial">partial</option><option value="shade">shade</option></select></label>
+            <label class="f">Wadah <input id="newPotContainer" value="pot_sedang" size="10"></label>
+            <button class="btn primary" id="newPotBtn">Buat</button>
+          </div>
+          <p class="small muted" style="margin-top:8px">Kosongkan cahaya/wadah untuk menguji pertanyaan <code>ask_user</code> di F2.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Pot saya</h3>
+        <div id="potList" class="muted">-</div>
+      </div>
+      <div class="card">
+        <h3>Pot aktif: ubah konteks</h3>
+        <div class="row">
+          <label class="f">Cahaya <select id="editLight"><option value="">(kosong)</option><option value="full">full</option><option value="partial">partial</option><option value="shade">shade</option></select></label>
+          <label class="f">Wadah <input id="editContainer" size="12"></label>
+          <button class="btn" id="editPotBtn">Simpan</button>
+        </div>
+        <div id="plantingBox" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <!-- 3 UKUR -->
+    <section class="view" id="view-measure">
+      <div class="view-head"><h2>Ukur (simulasi probe)</h2>
+        <p>Meniru pesan MQTT <code>potani/{device_id}/data</code>. Bacaan ditandai <code>is_demo</code> dan diproses oleh logika ingest P2 yang sama.</p></div>
+      <div class="card">
+        <div class="row">
+          <label class="f">Perangkat <select id="mDevice"></select></label>
+          <label class="f">Tahap <select id="mStage">
+            <option>pre_plant</option><option>post_remediation</option><option>control</option><option>symptom</option><option>end</option></select></label>
+          <label class="f">pH <input id="mPh" type="number" step="0.1" value="6.2"></label>
+          <label class="f">Kelembapan % <input id="mMoist" type="number" step="1" value="40"></label>
+          <label class="f">Suhu °C <input id="mTemp" type="number" step="0.5" value="27"></label>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" id="measureBtn">Buka sesi + kirim bacaan</button>
+          <button class="btn" id="orphanBtn">Kirim tanpa sesi (bacaan yatim)</button>
+          <span class="small muted">Preset:</span>
+          <button class="btn small" data-preset="6.2,55,27">Normal</button>
+          <button class="btn small" data-preset="4.8,40,27">Asam &amp; kering</button>
+          <button class="btn small" data-preset="6.2,40,27">Kering</button>
+          <button class="btn small" data-preset="15,50,27">pH tidak valid</button>
+        </div>
+        <div id="measureStatus" style="margin-top:10px"></div>
+      </div>
+      <div class="card"><h3>Riwayat pot aktif</h3><div id="history" class="table-wrap muted">-</div></div>
+      <div class="card"><h3>Bacaan yatim (belum ditautkan)</h3><div id="orphans" class="muted">-</div></div>
+    </section>
+
+    <!-- 4 REKOMENDASI -->
+    <section class="view" id="view-recommend">
+      <div class="view-head"><h2>Rekomendasi tanaman (F2 soil-first)</h2>
+        <p>Memakai bacaan tahap <code>pre_plant</code> terbaru pot aktif. Skor dihitung deterministik; LLM hanya menulis ringkasan.</p></div>
+      <div class="card"><div class="row"><button class="btn primary" id="recBtn">Minta rekomendasi</button></div></div>
+      <div id="recOut"></div>
+    </section>
+
+    <!-- 5 EVALUASI -->
+    <section class="view" id="view-evaluate">
+      <div class="view-head"><h2>Evaluasi tanaman pilihan (F3 plant-first)</h2></div>
+      <div class="card">
+        <div class="row">
+          <label class="f">Tanaman <select id="evalCrop"></select></label>
+          <button class="btn primary" id="evalBtn">Evaluasi</button>
+        </div>
+      </div>
+      <div id="evalOut"></div>
+      <div class="card"><h3>Data tanaman (crops)</h3><div id="cropTable" class="table-wrap muted">-</div></div>
+    </section>
+
+    <!-- 6 RENCANA -->
+    <section class="view" id="view-plans">
+      <div class="view-head"><h2>Rencana &amp; checkpoint (F6 closed-loop)</h2>
+        <p>Tombol bertanda <span class="chip info">dev</span> memajukan waktu atau menjalankan job scheduler P3 sekarang, agar tidak perlu menunggu.</p></div>
+      <div class="card">
+        <h3>Job scheduler <span class="chip info">dev</span></h3>
+        <div class="row">
+          <button class="btn" data-job="scan_due_checkpoints">scan_due_checkpoints</button>
+          <button class="btn" data-job="run_verify_queue">run_verify_queue</button>
+          <button class="btn" data-job="scan_missed">scan_missed</button>
+          <button class="btn" data-job="expire_sessions">expire_sessions</button>
+          <button class="btn" data-job="device_offline">device_offline</button>
+        </div>
+      </div>
+      <div class="grid2" style="align-items:start">
+        <div class="card"><h3>Rencana pot aktif</h3><div id="planList" class="muted">-</div></div>
+        <div class="card"><h3>Notifikasi (FCM nonaktif)</h3><div id="notifList" class="muted">-</div></div>
+      </div>
+      <div id="planDetail" style="margin-top:14px"></div>
+    </section>
+
+    <!-- 7 CHAT -->
+    <section class="view" id="view-chat">
+      <div class="view-head"><h2>TaniBot (F7)</h2>
+        <p>Pesan dikirim dengan konteks pot aktif. Kata "ingatkan" atau "jadwalkan" mengaktifkan tool write.</p></div>
+      <div class="card">
+        <div class="chat" id="chatBox"><p class="muted">Belum ada pesan.</p></div>
+        <form class="row" id="chatForm" style="margin-top:10px">
+          <input id="chatInput" maxlength="500" placeholder="Tanya sesuatu, mis. Gimana kondisi pot saya?" style="flex:1;min-width:200px" autocomplete="off">
+          <button class="btn primary" type="submit">Kirim</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 8 LOG -->
+    <section class="view" id="view-logs">
+      <div class="view-head"><h2>Log agent</h2><p>Isi tabel <code>agent_logs</code> milik pengguna ini: tool, argumen, hasil, durasi.</p></div>
+      <div class="card">
+        <div class="row" style="margin-bottom:10px">
+          <label class="f">Fitur <select id="logFeature"><option value="">semua</option><option>F2</option><option>F3</option><option>F6</option><option>F7</option></select></label>
+          <button class="btn" id="logRefresh">Muat ulang</button>
+        </div>
+        <div id="logTable" class="table-wrap muted">-</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<details id="drawer">
+  <summary><span>▲</span> Log request API <span class="chip" id="reqCount">0</span></summary>
+  <div id="reqlog"></div>
+</details>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => [...document.querySelectorAll(s)];
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = (v, d = 2) => (v === null || v === undefined ? "–" : typeof v === "number" ? +v.toFixed(d) : esc(v));
+const jsonBlock = (o) => `<pre class="json">${esc(JSON.stringify(o, null, 2))}</pre>`;
+const store = {
+  get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+};
+
+const S = { uid: store.get("potani.uid", "demo"), pots: [], devices: [], crops: [], potId: store.get("potani.pot", ""), planId: null };
+const chatHistory = [];
+const reqs = [];
+
+// ------------------------------------------------------------- API
+async function api(method, path, body) {
+  const t0 = performance.now();
+  let res, data = null;
+  try {
+    res = await fetch(path, {
+      method,
+      headers: { Authorization: "Bearer dev:" + S.uid, "Content-Type": "application/json" },
+      body: body === undefined ? undefined : JSON.stringify(body),
+    });
+    data = await res.json().catch(() => null);
+  } catch (e) {
+    logReq(method, path, body, 0, { error: String(e) }, performance.now() - t0);
+    toast("Tidak bisa menghubungi server.", "bad");
+    throw e;
+  }
+  logReq(method, path, body, res.status, data, performance.now() - t0);
+  if (!res.ok) {
+    const msg = data?.error?.message || `HTTP ${res.status}`;
+    toast(`${msg}${data?.error?.code ? ` (${data.error.code})` : ""}`, "bad");
+    const err = new Error(msg); err.status = res.status; err.data = data; throw err;
+  }
+  return data;
+}
+
+function logReq(method, path, body, status, data, ms) {
+  reqs.unshift({ method, path, body, status, data, ms, at: new Date().toLocaleTimeString() });
+  reqs.length = Math.min(reqs.length, 60);
+  $("#reqCount").textContent = reqs.length;
+  $("#reqlog").innerHTML = reqs.map((r) => `
+    <details class="req"><summary>
+      <span class="chip ${r.status >= 400 || r.status === 0 ? "bad" : "ok"}">${r.status || "ERR"}</span>
+      <b>${esc(r.method)}</b> ${esc(r.path)} <span class="muted">${Math.round(r.ms)} ms · ${r.at}</span></summary>
+      ${r.body !== undefined ? `<div class="small muted">body</div>${jsonBlock(r.body)}` : ""}
+      <div class="small muted">respons</div>${jsonBlock(r.data)}
+    </details>`).join("");
+}
+
+function toast(text, kind = "") {
+  const d = document.createElement("div");
+  d.className = kind; d.textContent = text;
+  $("#toast").appendChild(d);
+  setTimeout(() => d.remove(), kind === "bad" ? 6000 : 3500);
+}
+
+async function busy(btn, fn) {
+  if (btn) btn.disabled = true;
+  try { return await fn(); } catch (e) { console.warn(e); } finally { if (btn) btn.disabled = false; }
+}
+
+// ------------------------------------------------------------- navigasi & tema
+function show(view) {
+  $$("nav button").forEach((b) => b.setAttribute("aria-current", b.dataset.view === view));
+  $$("section.view").forEach((s) => s.classList.toggle("active", s.id === "view-" + view));
+  store.set("potani.view", view);
+  ({ pots: loadPotsView, measure: loadMeasureView, plans: loadPlansView, logs: loadLogs, evaluate: renderCropTable }[view] || (() => {}))();
+}
+$("#nav").addEventListener("click", (e) => { const b = e.target.closest("button[data-view]"); if (b) show(b.dataset.view); });
+$("#themeBtn").addEventListener("click", () => {
+  const cur = document.documentElement.dataset.theme;
+  const dark = cur ? cur === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.dataset.theme = dark ? "light" : "dark";
+  store.set("potani.theme", document.documentElement.dataset.theme);
+});
+{ const t = store.get("potani.theme", ""); if (t) document.documentElement.dataset.theme = t; }
+
+// ------------------------------------------------------------- data bersama
+const statusChip = (s) => {
+  const map = { ok: "ok", cocok: "ok", ACHIEVED: "ok", verified: "ok", completed: "ok", near_boundary: "warn", perlu_perbaikan: "warn",
+    low: "warn", high: "warn", CHECKPOINT_DUE: "warn", MISSED: "warn", WAITING_USER: "info", REPLANNING: "warn", reminded: "warn",
+    missed: "bad", tidak_cocok: "bad", ESCALATED: "bad", invalid: "bad", expired: "bad", no_reference: "", measured: "info",
+    VERIFYING: "info", AWAITING_CHECKPOINT: "info", PLANNED: "info", scheduled: "info", open: "info", tidak_sesuai: "bad" };
+  return `<span class="chip ${map[s] ?? ""}">${esc(s)}</span>`;
+};
+
+async function loadHealth() {
+  try {
+    const h = await fetch("/health").then((r) => r.json());
+    $("#health").innerHTML = [
+      `<span class="chip ${h.db === "ok" ? "ok" : "bad"}">DB ${esc(h.db)}</span>`,
+      `<span class="chip ${h.llm === "ok" ? "ok" : h.llm === "error" ? "bad" : "warn"}">LLM ${esc(h.llm)}</span>`,
+      h.demo_mode ? `<span class="chip warn">mode demo ×${esc(h.time_acceleration)}</span>` : "",
+      h.data_is_demo ? `<span class="chip warn">data tanaman DEMO</span>` : "",
+    ].join("");
+    $("#healthDetail").innerHTML = jsonBlock(h) + (h.llm !== "ok"
+      ? `<p class="note warn" style="margin-top:8px">LLM tidak aktif: semua endpoint tetap jalan dengan <code>narrative: null</code> (aturan 4). Isi <code>GROQ_API_KEY</code> untuk menguji narasi dan agent LLM.</p>` : "");
+  } catch { $("#health").innerHTML = `<span class="chip bad">API mati</span>`; }
+}
+
+async function loadCore() {
+  const [me, pots, devs, crops] = await Promise.all([api("GET", "/me"), api("GET", "/pots"), api("GET", "/devices"), api("GET", "/crops")]);
+  S.pots = pots.pots; S.devices = devs.devices; S.crops = crops.crops;
+  if (!S.pots.some((p) => p.pot_id === S.potId)) S.potId = S.pots[0]?.pot_id || "";
+  store.set("potani.pot", S.potId);
+  $("#potSelect").innerHTML = S.pots.length
+    ? S.pots.map((p) => `<option value="${p.pot_id}" ${p.pot_id === S.potId ? "selected" : ""}>${esc(p.name)}${p.needs_help ? " ⚠" : ""}</option>`).join("")
+    : `<option value="">(belum ada pot)</option>`;
+  $("#mDevice").innerHTML = S.devices.map((d) => `<option>${esc(d.device_id)}</option>`).join("") || `<option value="">(pasangkan perangkat)</option>`;
+  $("#evalCrop").innerHTML = S.crops.map((c) => `<option value="${esc(c.crop_id)}">${esc(c.display_name)}</option>`).join("");
+  $("#meName").value = me.name || ""; $("#meLight").value = me.light_default || "";
+  $("#meContainer").value = me.container_default || ""; $("#meMaterials").value = (me.materials_owned || []).join(", ");
+}
+const pot = () => S.pots.find((p) => p.pot_id === S.potId);
+function needPot() { if (!S.potId) { toast("Buat atau pilih pot dulu.", "bad"); return false; } return true; }
+
+$("#uid").value = S.uid;
+$("#uid").addEventListener("change", async () => {
+  S.uid = $("#uid").value.trim() || "demo"; store.set("potani.uid", S.uid); S.potId = ""; chatHistory.length = 0;
+  renderChat(); await refreshAll();
+});
+$("#potSelect").addEventListener("change", () => {
+  S.potId = $("#potSelect").value; store.set("potani.pot", S.potId); S.planId = null;
+  show(store.get("potani.view", "start"));
+});
+
+// ------------------------------------------------------------- 1 Mulai
+$("#quickSetup").addEventListener("click", (e) => busy(e.target, async () => {
+  if (!S.devices.length) await api("POST", "/devices/pair", { device_id: "potani-demo-01" });
+  if (!S.pots.length) await api("POST", "/pots", { name: "Pot Demo", light_level: "full", container_type: "pot_sedang" });
+  await loadCore(); toast("Data demo siap. Lanjut ke menu Ukur.", "ok"); show("measure");
+}));
+$("#meSave").addEventListener("click", (e) => busy(e.target, async () => {
+  await api("PATCH", "/me", {
+    name: $("#meName").value || null, light_default: $("#meLight").value || null, container_default: $("#meContainer").value || null,
+    materials_owned: $("#meMaterials").value.split(",").map((s) => s.trim()).filter(Boolean),
+  });
+  toast("Profil disimpan.", "ok");
+}));
+
+// ------------------------------------------------------------- 2 Pot
+async function loadPotsView() {
+  await loadCore();
+  $("#deviceList").innerHTML = S.devices.length ? S.devices.map((d) => `
+    <div class="list-item"><div><b>${esc(d.device_id)}</b><div class="small muted">fw ${esc(d.fw_version || "-")} · baterai ${fmt(d.battery, 0)} · terakhir ${esc(d.last_seen_at ? new Date(d.last_seen_at).toLocaleString() : "-")}</div></div>
+    ${d.online ? statusChip("ok").replace(">ok<", ">online<") : `<span class="chip">offline</span>`}</div>`).join("") : "Belum ada perangkat.";
+  $("#potList").innerHTML = S.pots.length ? S.pots.map((p) => `
+    <div class="list-item"><div><b>${esc(p.name)}</b> ${p.pot_id === S.potId ? '<span class="chip ok">aktif</span>' : ""}
+      <div class="small muted">cahaya ${esc(p.light_level || "–")} · wadah ${esc(p.container_type || "–")}</div>
+      ${p.needs_help ? `<div class="note warn small" style="margin-top:4px">Butuh bantuan: ${esc(p.help_reason)}</div>` : ""}</div>
+      <div class="row">${p.needs_help ? `<button class="btn small" data-unhelp="${p.pot_id}">Tandai sudah dibantu</button>` : ""}
+      <button class="btn small" data-use="${p.pot_id}">Jadikan aktif</button></div></div>`).join("") : "Belum ada pot.";
+  const cur = pot();
+  $("#editLight").value = cur?.light_level || ""; $("#editContainer").value = cur?.container_type || "";
+  $("#plantingBox").innerHTML = "";
+  if (cur) {
+    const d = await api("GET", `/pots/${cur.pot_id}`);
+    const pl = d.active_planting;
+    $("#plantingBox").innerHTML = pl ? `<div class="note">Tanaman aktif: <b>${esc(pl.crop_id)}</b> ${statusChip(pl.status)} (${esc(pl.source)})
+      <div class="row" style="margin-top:8px">${["growing", "harvested", "failed", "abandoned"].map((s) =>
+        `<button class="btn small" data-planting="${pl.planting_id}" data-status="${s}">${s}</button>`).join("")}</div></div>`
+      : `<p class="muted small">Belum ada tanaman aktif di pot ini.</p>`;
+  }
+}
+$("#pairBtn").addEventListener("click", (e) => busy(e.target, async () => {
+  await api("POST", "/devices/pair", { device_id: $("#pairId").value.trim() }); toast("Perangkat dipasangkan.", "ok"); loadPotsView();
+}));
+$("#newPotBtn").addEventListener("click", (e) => busy(e.target, async () => {
+  const p = await api("POST", "/pots", { name: $("#newPotName").value, light_level: $("#newPotLight").value || null,
+    container_type: $("#newPotContainer").value || null });
+  S.potId = p.pot_id; store.set("potani.pot", S.potId); toast("Pot dibuat dan dijadikan aktif.", "ok"); loadPotsView();
+}));
+$("#editPotBtn").addEventListener("click", (e) => busy(e.target, async () => {
+  if (!needPot()) return;
+  await api("PATCH", `/pots/${S.potId}`, { light_level: $("#editLight").value || null, container_type: $("#editContainer").value || null });
+  toast("Pot diperbarui.", "ok"); loadPotsView();
+}));
+$("#view-pots").addEventListener("click", (e) => {
+  const t = e.target;
+  if (t.dataset.use) { S.potId = t.dataset.use; store.set("potani.pot", S.potId); loadPotsView(); }
+  if (t.dataset.unhelp) busy(t, async () => { await api("PATCH", `/pots/${t.dataset.unhelp}`, { needs_help: false }); loadPotsView(); });
+  if (t.dataset.planting) busy(t, async () => {
+    await api("PATCH", `/plantings/${t.dataset.planting}`, { status: t.dataset.status, outcome_note: `Dicatat dari konsol: ${t.dataset.status}` });
+    toast("Status tanam dicatat.", "ok"); loadPotsView();
+  });
+});
+
+// ------------------------------------------------------------- 3 Ukur
+$$("[data-preset]").forEach((b) => b.addEventListener("click", () => {
+  const [ph, m, t] = b.dataset.preset.split(","); $("#mPh").value = ph; $("#mMoist").value = m; $("#mTemp").value = t;
+}));
+const reading = () => ({ device_id: $("#mDevice").value, ph: +$("#mPh").value, moisture: +$("#mMoist").value, temperature: +$("#mTemp").value });
+
+$("#measureBtn").addEventListener("click", (e) => busy(e.target, async () => {
+  if (!needPot()) return;
+  const r = reading();
+  const out = $("#measureStatus");
+  const sess = await api("POST", "/sessions", { device_id: r.device_id, pot_id: S.potId, stage: $("#mStage").value });
+  out.innerHTML = `<p class="note info">Sesi dibuka (${statusChip(sess.status)}), berlaku sampai ${new Date(sess.expires_at).toLocaleTimeString()}. Mengirim bacaan…</p>`;
+  const m = await api("POST", "/dev/simulate", r);
+  let st = sess;
+  for (let i = 0; i < 10; i++) { st = await api("GET", `/sessions/${sess.session_id}`); if (st.status !== "open") break; await new Promise((ok) => setTimeout(ok, 300)); }
+  out.innerHTML = m.invalid
+    ? `<p class="note warn">Bacaan disimpan sebagai <b>invalid</b> (di luar rentang fisik) dan tidak dipakai. Sesi masih ${statusChip(st.status)}.</p>`
+    : `<p class="note">Sesi ${statusChip(st.status)}. Bacaan tertaut ke pot dengan tahap <b>${esc(st.measurement?.stage)}</b>:
+       pH ${fmt(st.measurement?.ph)}, kelembapan ${fmt(st.measurement?.moisture)}%, suhu ${fmt(st.measurement?.temperature)}°C.</p>`;
+  loadMeasureView();
+}));
+$("#orphanBtn").addEventListener("click", (e) => busy(e.target, async () => {
+  const m = await api("POST", "/dev/simulate", reading());
+  $("#measureStatus").innerHTML = `<p class="note">Bacaan masuk tanpa sesi${m.invalid ? " (invalid)" : ""}, tidak tertaut ke pot. Lihat daftar bacaan yatim di bawah.</p>`;
+  loadMeasureView();
+}));
+
+function measurementTable(rows) {
+  if (!rows.length) return "Belum ada bacaan.";
+  return `<table><thead><tr><th>Waktu</th><th>Tahap</th><th>pH</th><th>Kelembapan</th><th>Suhu</th><th></th></tr></thead><tbody>${rows.map((m) => `
+    <tr><td class="small">${esc(new Date(m.measured_at).toLocaleString())}</td><td>${esc(m.stage || "–")}</td>
+    <td class="num">${fmt(m.ph)}</td><td class="num">${fmt(m.moisture)}</td><td class="num">${fmt(m.temperature)}</td>
+    <td>${m.invalid ? statusChip("invalid") : ""}${m.is_demo ? ' <span class="chip">demo</span>' : ""}</td></tr>`).join("")}</tbody></table>`;
+}
+async function loadMeasureView() {
+  if (!S.devices.length || !S.pots.length) await loadCore();
+  if (S.potId) $("#history").innerHTML = measurementTable((await api("GET", `/measurements?pot_id=${S.potId}&limit=20`)).measurements);
+  const orphans = (await api("GET", "/measurements?unassigned=true&limit=20")).measurements;
+  $("#orphans").innerHTML = orphans.length ? orphans.map((m) => `
+    <div class="list-item"><div class="small">${esc(new Date(m.measured_at).toLocaleString())} · pH ${fmt(m.ph)} · kelembapan ${fmt(m.moisture)} · suhu ${fmt(m.temperature)}
+      ${m.invalid ? statusChip("invalid") : ""}</div>
+      ${m.invalid ? "" : `<div class="row"><select data-stage-for="${m.measurement_id}"><option>control</option><option>pre_plant</option><option>post_remediation</option><option>symptom</option><option>end</option></select>
+      <button class="btn small" data-link="${m.measurement_id}">Tautkan ke pot aktif</button></div>`}</div>`).join("") : "Tidak ada.";
+}
+$("#orphans").addEventListener("click", (e) => {
+  const id = e.target.dataset.link; if (!id || !needPot()) return;
+  busy(e.target, async () => {
+    await api("PATCH", `/measurements/${id}`, { pot_id: S.potId, stage: document.querySelector(`[data-stage-for="${id}"]`).value });
+    toast("Bacaan ditautkan.", "ok"); loadMeasureView();
+  });
+});
+
+// ------------------------------------------------------------- 4 Rekomendasi
+function questionCard(q, title = "Agent bertanya") {
+  return `<div class="card"><h3>${esc(title)}</h3><p style="margin-bottom:10px">${esc(q.question)}</p>
+    <div class="row">${(q.options || []).map((o) => `<button class="btn" data-qid="${q.question_id}" data-answer="${esc(o)}">${esc(o)}</button>`).join("")}</div></div>`;
+}
+function perParamCells(pp) {
+  return ["ph", "moisture", "temperature"].map((p) => {
+    const v = pp[p];
+    if (!v) return `<td class="muted small">tidak dinilai</td>`;
+    return `<td class="num">${fmt(v.value)} <span class="small muted">(skor ${fmt(v.score)})</span>${v.near_boundary ? ' <span class="chip warn">dekat batas</span>' : ""}</td>`;
+  }).join("");
+}
+function renderRecommend(r) {
+  const out = $("#recOut");
+  if (r.status === "need_input") { out.innerHTML = questionCard(r.question, "Konteks pot belum lengkap (ask_user)"); return; }
+  const cands = r.candidates || [];
+  out.innerHTML = `
+    ${r.status === "needs_remeasure" ? `<p class="note warn" style="margin-bottom:14px">${esc(r.message)} Kandidat di bawah tidak bisa dipilih sebagai rekomendasi sampai diukur ulang.</p>` : ""}
+    <div class="card"><h3>Ringkasan LLM</h3>${r.narrative ? `<p style="white-space:pre-wrap">${esc(r.narrative)}</p>`
+      : `<p class="muted">Tidak ada narasi (<code>narrative: null</code>): LLM mati, gagal, atau menulis angka yang tidak bersumber.</p>`}</div>
+    <div class="card"><h3>Kandidat (skor ≥ ${fmt(r.threshold)})</h3>
+      <p class="small muted" style="margin-bottom:8px">Bacaan: pH ${fmt(r.reading?.ph)}, kelembapan ${fmt(r.reading?.moisture)}, suhu ${fmt(r.reading?.temperature)} · cahaya ${esc(r.light_level || "–")}
+        ${r.skipped_params?.length ? ` · dilewati (belum ada acuan): ${r.skipped_params.map(esc).join(", ")}` : ""}</p>
+      ${cands.length ? `<div class="table-wrap"><table><thead><tr><th>Tanaman</th><th>Skor</th><th>Pembatas</th><th>pH</th><th>Kelembapan</th><th>Suhu</th><th></th></tr></thead><tbody>
+      ${cands.map((c) => `<tr><td><b>${esc(c.display_name)}</b>${c.reasons.length ? `<div class="small muted">${c.reasons.map(esc).join("; ")}</div>` : ""}</td>
+        <td class="num">${fmt(c.score)}<div class="bar"><i style="width:${Math.round(c.score * 100)}%"></i></div></td>
+        <td>${esc(c.limiting_param)}</td>${perParamCells(c.per_param)}
+        <td><button class="btn small primary" data-plant="${esc(c.crop_id)}" ${r.status === "needs_remeasure" ? "disabled" : ""}>Pilih</button></td></tr>`).join("")}
+      </tbody></table></div>` : `<p class="muted">Tidak ada kandidat.</p>`}</div>
+    <div class="card"><h3>Dikeluarkan</h3>${(r.excluded || []).length ? r.excluded.map((x) =>
+      `<div class="list-item"><span><b>${esc(x.crop_id)}</b> ${x.score !== undefined ? `<span class="small muted">skor ${fmt(x.score)}</span>` : ""}</span><span class="muted small">${esc(x.reason)}</span></div>`).join("") : '<p class="muted">-</p>'}</div>`;
+}
+$("#recBtn").addEventListener("click", (e) => busy(e.target, async () => {
+  if (!needPot()) return;
+  try { renderRecommend(await api("POST", "/recommend", { pot_id: S.potId })); }
+  catch (err) { $("#recOut").innerHTML = `<p class="note warn">${esc(err.message)}</p>`; }
+}));
+$("#recOut").addEventListener("click", (e) => {
+  const t = e.target;
+  if (t.dataset.qid) busy(t, async () => {
+    const r = await api("POST", "/agent/answers", { question_id: t.dataset.qid, answer: t.dataset.answer });
+    await loadCore(); renderRecommend(r.result);
+  });
+  if (t.dataset.plant) plant(t, t.dataset.plant, "recommender");
+});
+async function plant(btn, cropId, source) {
+  return busy(btn, async () => {
+    const r = await api("POST", "/plantings", { pot_id: S.potId, crop_id: cropId, source });
+    if (r.plan) { S.planId = r.plan.plan_id; toast(`Tanaman dipilih. Rencana dibuat (${r.plan.generated_by}).`, "ok"); show("plans"); }
+    else toast(`Tanaman dipilih. Tidak perlu rencana perbaikan (verdict: ${r.evaluation?.verdict || "-"}).`, "ok");
+  });
+}
+
+// ------------------------------------------------------------- 5 Evaluasi
+$("#evalBtn").addEventListener("click", (e) => busy(e.target, async () => {
+  if (!needPot()) return;
+  let r;
+  try { r = await api("POST", "/evaluate", { pot_id: S.potId, crop_id: $("#evalCrop").value }); }
+  catch (err) { $("#evalOut").innerHTML = `<p class="note warn">${esc(err.message)}</p>`; return; }
+  const labels = { ph: "pH", moisture: "Kelembapan", temperature: "Suhu" };
+  $("#evalOut").innerHTML = `
+    <div class="card"><h3>${esc(r.display_name)} ${statusChip(r.verdict)}</h3><p>${esc(r.verdict_text)}</p>
+      ${r.remeasure_suggested ? `<p class="note warn" style="margin-top:8px">Ada nilai dekat batas rentang; sebaiknya ukur ulang.</p>` : ""}
+      <p class="small muted" style="margin-top:8px">Cahaya: ${statusChip(r.light.status)} pot ${esc(r.light.pot_light || "–")}, butuh ${esc((r.light.allowed || []).join("/") || "–")}</p></div>
+    <div class="card"><h3>Per parameter</h3><div class="table-wrap"><table><thead><tr><th>Parameter</th><th>Nilai</th><th>Status</th><th>Optimal</th><th>Absolut</th><th>Sumber</th></tr></thead><tbody>
+      ${Object.entries(r.per_param).map(([p, v]) => `<tr><td>${labels[p]}</td><td class="num">${fmt(v.value)}</td><td>${statusChip(v.status)}</td>
+        <td class="num">${v.optimal ? `${fmt(v.optimal.min)}–${fmt(v.optimal.max)}` : "–"}</td><td class="num">${v.absolute ? `${fmt(v.absolute.min)}–${fmt(v.absolute.max)}` : "–"}</td>
+        <td class="small muted">${esc(v.source || "belum ada acuan")}</td></tr>`).join("")}</tbody></table></div></div>
+    ${r.remediation_hint.length ? `<div class="card"><h3>Saran perbaikan (bersumber)</h3>${r.remediation_hint.map((h) => `
+      <p style="margin:6px 0 4px"><b>${esc(h.label)}</b> terlalu ${h.condition === "low" ? "rendah" : "tinggi"} · verifikasi setelah ${fmt(h.verify_after_days)} hari</p>
+      ${h.options.length ? h.options.map((o) => `<div class="list-item"><span>${esc(o.material)} ${o.household ? '<span class="chip">rumah tangga</span>' : ""} ${o.owned ? '<span class="chip ok">dimiliki</span>' : ""}</span>
+        <span class="small">${o.dose !== null ? `${fmt(o.dose)} ${esc(o.unit)} per ${esc(o.per)}` : "-"} <span class="muted">· ${esc(o.source)}</span></span></div>`).join("")
+        : `<p class="muted small">${esc(h.message)}</p>`}`).join("")}</div>` : ""}
+    <div class="card"><h3>Narasi LLM</h3>${r.narrative ? `<p style="white-space:pre-wrap">${esc(r.narrative)}</p>` : '<p class="muted">narrative: null</p>'}
+      <div class="row" style="margin-top:10px"><button class="btn primary" data-plant="${esc(r.crop_id)}">Tanam ini (pilihan sendiri)</button></div></div>`;
+}));
+$("#evalOut").addEventListener("click", (e) => { if (e.target.dataset.plant) plant(e.target, e.target.dataset.plant, "user_choice"); });
+function renderCropTable() {
+  const r = (s) => s && !s.unsourced ? `${fmt(s.abs_min)} · <b>${fmt(s.opt_min)}–${fmt(s.opt_max)}</b> · ${fmt(s.abs_max)}` : '<span class="muted">belum ada acuan</span>';
+  $("#cropTable").innerHTML = S.crops.length ? `<table><thead><tr><th>Tanaman</th><th>pH</th><th>Kelembapan</th><th>Suhu</th><th>Cahaya</th></tr></thead><tbody>
+    ${S.crops.map((c) => `<tr><td><b>${esc(c.display_name)}</b></td><td class="small">${r(c.params.ph)}</td><td class="small">${r(c.params.moisture)}</td>
+      <td class="small">${r(c.params.temperature)}</td><td class="small">${c.light.unsourced ? '<span class="muted">belum ada acuan</span>' : esc(c.light.allowed.join(", "))}</td></tr>`).join("")}
+    </tbody></table><p class="small muted" style="margin-top:6px">Format: absolut min · <b>optimal</b> · absolut max</p>` : "-";
+}
+
+// ------------------------------------------------------------- 6 Rencana
+const FLOW = ["PLANNED", "AWAITING_CHECKPOINT", "CHECKPOINT_DUE", "VERIFYING", "ACHIEVED"];
+const SIDE = ["MISSED", "REPLANNING", "WAITING_USER", "ESCALATED", "CLOSED"];
+const stateRow = (cur) => `<div class="states">${FLOW.map((s, i) => `${i ? '<span class="arrow">→</span>' : ""}<span class="chip ${s === cur ? "ok" : ""}" ${s === cur ? 'aria-current="step"' : ""}>${s}</span>`).join("")}</div>
+  <div class="states" style="margin-top:6px"><span class="small muted">cabang:</span>${SIDE.map((s) => `<span class="chip ${s === cur ? (s === "ESCALATED" ? "bad" : "warn") : ""}">${s}</span>`).join("")}</div>`;
+
+async function loadPlansView() {
+  if (!S.potId) { $("#planList").textContent = "Pilih pot dulu."; return; }
+  const plans = (await api("GET", `/plans?pot_id=${S.potId}`)).plans;
+  if (!S.planId || !plans.some((p) => p.plan_id === S.planId)) S.planId = plans[0]?.plan_id || null;
+  $("#planList").innerHTML = plans.length ? plans.map((p) => `
+    <div class="list-item"><div><b>${esc(p.crop_id)}</b> v${p.version} ${statusChip(p.state)}<div class="small muted">${esc(p.goal)}</div></div>
+    <button class="btn small ${p.plan_id === S.planId ? "primary" : ""}" data-plan="${p.plan_id}">Lihat</button></div>`).join("")
+    : "Belum ada rencana. Pilih tanaman dengan parameter di luar optimal untuk membuatnya.";
+  const notif = (await api("GET", "/dev/notifications")).notifications;
+  $("#notifList").innerHTML = notif.length ? notif.slice(0, 8).map((n) => `<div class="list-item"><div><b>${esc(n.title)}</b><div class="small muted">${esc(n.body)}</div></div></div>`).join("") : "Belum ada.";
+  await renderPlan();
+}
+async function renderPlan() {
+  const box = $("#planDetail");
+  if (!S.planId) { box.innerHTML = ""; return; }
+  const p = await api("GET", `/plans/${S.planId}`);
+  box.innerHTML = `
+    <div class="card"><h3>${esc(p.goal)}</h3>
+      <p class="small muted" style="margin-bottom:10px">${esc(p.kind)} · versi ${p.version} · revisi ${p.replan_count} · disusun oleh <b>${esc(p.generated_by)}</b>${p.demo_mode ? " · waktu dipercepat (mode demo)" : ""}</p>
+      ${stateRow(p.state)}
+      <div class="row" style="margin-top:12px">
+        <button class="btn primary" id="doneBtn" ${p.state !== "PLANNED" ? "disabled" : ""}>Tandai langkah dikerjakan</button>
+      </div></div>
+    ${p.pending_question ? questionCard(p.pending_question, "Agent F6 menunggu jawaban") : ""}
+    <div class="grid2" style="align-items:start">
+      <div class="card"><h3>Langkah</h3><ol class="steps">${p.steps.map((s) => `<li>${esc(s.action)}${s.source ? `<div class="small muted">ref ${esc(s.remediation_ref)} · ${esc(s.source)}</div>` : ""}</li>`).join("")}</ol></div>
+      <div class="card"><h3>Target</h3>${p.targets.map((t) => `<div class="list-item"><span>${esc(t.param)}</span><span class="num">${fmt(t.min)} – ${fmt(t.max)}</span></div>`).join("")}</div>
+    </div>
+    <div class="card" style="margin-top:14px"><h3>Checkpoint</h3><div class="table-wrap"><table><thead><tr><th>Param</th><th>Versi</th><th>Jatuh tempo</th><th>Status</th><th>Hasil</th><th>dev</th></tr></thead><tbody>
+      ${p.checkpoints.map((c) => `<tr><td>${esc(c.param)}</td><td>v${c.plan_version}</td><td class="small">${esc(new Date(c.due_at).toLocaleString())}<div class="muted">${fmt(c.due_in_days)} hari</div></td>
+        <td>${statusChip(c.status)}</td>
+        <td class="small">${c.verify_result ? `${fmt(c.verify_result.value)} → ${c.verify_result.achieved ? statusChip("ok").replace(">ok<", ">tercapai<") : `<span class="chip warn">belum (${esc(c.verify_result.condition)})</span>`}` : "–"}</td>
+        <td>${["scheduled", "reminded"].includes(c.status) ? `<div class="row"><button class="btn small" data-due="${c.checkpoint_id}" data-days="0">Jatuh tempo sekarang</button>
+          ${c.status === "reminded" ? `<button class="btn small" data-due="${c.checkpoint_id}" data-days="3">Lewat 3 hari</button>` : ""}</div>` : ""}</td></tr>`).join("")}
+    </tbody></table></div>
+    <div class="row" style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
+      <span class="small muted">Ukur ulang cepat (post_remediation):</span>
+      <label class="f">pH <input id="qPh" type="number" step="0.1" value="${esc($("#mPh").value)}"></label>
+      <label class="f">Kelembapan <input id="qMoist" type="number" step="1" value="55"></label>
+      <button class="btn" id="quickMeasure">Ukur + verifikasi</button>
+    </div></div>
+    <details class="card"><summary>Riwayat versi (${(p.history || []).length})</summary>${jsonBlock(p.history || [])}</details>`;
+}
+$("#view-plans").addEventListener("click", (e) => {
+  const t = e.target;
+  if (t.dataset.plan) { S.planId = t.dataset.plan; loadPlansView(); }
+  if (t.dataset.job) busy(t, async () => { const r = await api("POST", `/dev/jobs/${t.dataset.job}`); toast(`${r.job}: ${r.processed} diproses`, "ok"); loadPlansView(); });
+  if (t.dataset.due) busy(t, async () => { await api("POST", `/dev/checkpoints/${t.dataset.due}/make-due?days_ago=${t.dataset.days}`); toast("Waktu dimajukan. Jalankan job scheduler.", "ok"); renderPlan(); });
+  if (t.id === "doneBtn") busy(t, async () => { await api("POST", `/plans/${S.planId}/done`); toast("Rencana ditandai dikerjakan.", "ok"); loadPlansView(); });
+  if (t.dataset.qid) busy(t, async () => { await api("POST", "/agent/answers", { question_id: t.dataset.qid, answer: t.dataset.answer }); loadPlansView(); });
+  if (t.id === "quickMeasure") busy(t, async () => {
+    const dev = S.devices[0]?.device_id; if (!dev) { toast("Pasangkan perangkat dulu.", "bad"); return; }
+    await api("POST", "/sessions", { device_id: dev, pot_id: S.potId, stage: "post_remediation" });
+    await api("POST", "/dev/simulate", { device_id: dev, ph: +$("#qPh").value, moisture: +$("#qMoist").value, temperature: +$("#mTemp").value });
+    const r = await api("POST", "/dev/jobs/run_verify_queue");
+    toast(r.processed ? "Bacaan masuk dan diverifikasi." : "Bacaan masuk, tetapi tidak ada checkpoint jatuh tempo yang tertutup.", r.processed ? "ok" : "");
+    loadPlansView();
+  });
+});
+
+// ------------------------------------------------------------- 7 Chat
+function renderChat() {
+  $("#chatBox").innerHTML = chatHistory.length ? chatHistory.map((m) => `<div class="msg ${m.role}">${esc(m.text)}
+    ${m.trace?.length ? `<div class="trace">${m.trace.map((t) => `<span class="chip ${t.ok ? "ok" : "bad"}" title="${esc(JSON.stringify(t.args))}">${esc(t.tool)}</span>`).join("")}</div>` : ""}
+    ${m.role === "bot" && m.narrative === null ? '<div class="small muted" style="margin-top:4px">jawaban cadangan (LLM tidak tersedia)</div>' : ""}</div>`).join("")
+    : '<p class="muted">Belum ada pesan.</p>';
+  $("#chatBox").scrollTop = $("#chatBox").scrollHeight;
+}
+$("#chatForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const text = $("#chatInput").value.trim(); if (!text) return;
+  chatHistory.push({ role: "user", text }); $("#chatInput").value = ""; renderChat();
+  busy(e.submitter, async () => {
+    const r = await api("POST", "/chat", { message: text, pot_id: S.potId || null });
+    chatHistory.push({ role: "bot", text: r.reply, trace: r.tool_trace, narrative: r.narrative }); renderChat();
+  });
+});
+
+// ------------------------------------------------------------- 8 Log
+async function loadLogs() {
+  const f = $("#logFeature").value;
+  const logs = (await api("GET", `/dev/agent-logs?limit=80${f ? `&feature=${f}` : ""}`)).logs;
+  $("#logTable").innerHTML = logs.length ? `<table><thead><tr><th>Waktu</th><th>Fitur</th><th>Langkah</th><th>Tool</th><th>ms</th><th>Status</th></tr></thead><tbody>
+    ${logs.map((l) => `<tr><td class="small">${esc(new Date(l.at).toLocaleTimeString())}</td><td>${esc(l.feature)}</td><td class="small">${esc(l.step)}</td>
+      <td><details><summary><code>${esc(l.tool)}</code></summary><div class="small muted">run ${esc(l.run_id.slice(0, 8))} ${l.llm_model ? `· ${esc(l.llm_model)}` : ""}</div>
+      <div class="small muted">args</div>${jsonBlock(l.args)}<div class="small muted">hasil</div>${jsonBlock(l.result)}</details></td>
+      <td class="num">${l.latency_ms}</td><td>${l.error ? `<span class="chip bad">${esc(l.error)}</span>` : statusChip("ok")}</td></tr>`).join("")}</tbody></table>` : "Belum ada log.";
+}
+$("#logRefresh").addEventListener("click", loadLogs);
+$("#logFeature").addEventListener("change", loadLogs);
+
+// ------------------------------------------------------------- start
+async function refreshAll() {
+  await loadHealth();
+  try { await loadCore(); } catch { return; }
+  const fromHash = location.hash.slice(1);
+  show($("#view-" + fromHash) ? fromHash : store.get("potani.view", "start"));
+}
+refreshAll();
+setInterval(loadHealth, 30000);
+</script>
+</body>
+</html>

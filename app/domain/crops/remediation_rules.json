@@ -1,0 +1,68 @@
+{
+  "_meta": {
+    "is_demo": false,
+    "note": "Diisi tim dengan dosis bersumber. Opsi tanpa source tidak pernah ditampilkan."
+  },
+  "ph": {
+    "low": [
+      {
+        "material": "kapur dolomit",
+        "household": false,
+        "dose": null,
+        "unit": null,
+        "per": null,
+        "source": null,
+        "notes": null
+      }
+    ],
+    "high": [
+      {
+        "material": "belerang (sulfur)",
+        "household": false,
+        "dose": null,
+        "unit": null,
+        "per": null,
+        "source": null,
+        "notes": null
+      }
+    ]
+  },
+  "moisture": {
+    "low": [
+      {
+        "material": "air siraman",
+        "household": true,
+        "dose": null,
+        "unit": null,
+        "per": null,
+        "source": null,
+        "notes": null
+      }
+    ],
+    "high": [
+      {
+        "material": "sekam bakar",
+        "household": true,
+        "dose": null,
+        "unit": null,
+        "per": null,
+        "source": null,
+        "notes": null
+      }
+    ]
+  },
+  "temperature": {
+    "low": [],
+    "high": [
+      {
+        "material": "mulsa jerami",
+        "household": true,
+        "dose": null,
+        "unit": null,
+        "per": null,
+        "source": null,
+        "notes": null
+      }
+    ]
+  }
+}

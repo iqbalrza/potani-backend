@@ -1,0 +1,216 @@
+{
+  "_meta": {
+    "is_demo": false,
+    "note": "Diisi tim dari FAO ECOCROP dan Djaenudin dkk. (2003). Jangan diisi oleh AI. Parameter dengan source null dilewati dalam penilaian."
+  },
+  "cabai_rawit": {
+    "display_name": "Cabai Rawit",
+    "params": {
+      "ph": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "moisture": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "temperature": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true,
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [],
+      "source": null,
+      "unsourced": true
+    }
+  },
+  "kangkung": {
+    "display_name": "Kangkung",
+    "params": {
+      "ph": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "moisture": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "temperature": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true,
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [],
+      "source": null,
+      "unsourced": true
+    }
+  },
+  "bayam": {
+    "display_name": "Bayam",
+    "params": {
+      "ph": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "moisture": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "temperature": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true,
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [],
+      "source": null,
+      "unsourced": true
+    }
+  },
+  "tomat": {
+    "display_name": "Tomat",
+    "params": {
+      "ph": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "moisture": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "temperature": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true,
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [],
+      "source": null,
+      "unsourced": true
+    }
+  },
+  "selada": {
+    "display_name": "Selada",
+    "params": {
+      "ph": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "moisture": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "temperature": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true,
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [],
+      "source": null,
+      "unsourced": true
+    }
+  },
+  "sawi_hijau": {
+    "display_name": "Sawi Hijau",
+    "params": {
+      "ph": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "moisture": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true
+      },
+      "temperature": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null,
+        "unsourced": true,
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [],
+      "source": null,
+      "unsourced": true
+    }
+  }
+}

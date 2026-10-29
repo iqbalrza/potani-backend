@@ -1,0 +1,12 @@
+# Runtime (P1 api, P2 mqtt_worker, P3 scheduler_worker)
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.1
+pydantic-settings==2.16.2
+SQLAlchemy==2.1.6
+alembic==1.20.1
+psycopg[binary]==3.3.6
+paho-mqtt==2.1.0
+APScheduler==3.11.3
+groq==1.7.0
+firebase-admin==7.7.0

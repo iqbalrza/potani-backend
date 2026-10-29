@@ -1,0 +1,18 @@
+{
+  "_meta": {"is_demo": true, "note": "Data uji unit; bukan acuan."},
+  "ph": {
+    "low": [
+      {"material": "kapur dolomit", "household": false, "dose": 10, "unit": "gram", "per": "pot", "source": "TEST", "notes": null},
+      {"material": "abu kayu", "household": true, "dose": 20, "unit": "gram", "per": "pot", "source": "TEST", "notes": null},
+      {"material": "cangkang telur", "household": true, "dose": 30, "unit": "gram", "per": "pot", "source": null, "notes": null}
+    ],
+    "high": [
+      {"material": "belerang", "household": false, "dose": 5, "unit": "gram", "per": "pot", "source": "TEST", "notes": null}
+    ]
+  },
+  "moisture": {
+    "low": [{"material": "air siraman", "household": true, "dose": 500, "unit": "ml", "per": "pot", "source": "TEST", "notes": null}],
+    "high": [{"material": "sekam bakar", "household": true, "dose": 1, "unit": "genggam", "per": "pot", "source": "TEST", "notes": null}]
+  },
+  "temperature": {"low": [], "high": []}
+}

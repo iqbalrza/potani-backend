@@ -1,0 +1,210 @@
+{
+  "_meta": {
+    "is_demo": true,
+    "note": "File pengembangan. Semua angka adalah contoh dan tidak boleh dipakai untuk produksi atau dilaporkan sebagai hasil."
+  },
+  "cabai_rawit": {
+    "display_name": "Cabai Rawit",
+    "params": {
+      "ph": {
+        "abs_min": 4.5,
+        "opt_min": 5.5,
+        "opt_max": 7.0,
+        "abs_max": 8.0,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "moisture": {
+        "abs_min": 30,
+        "opt_min": 50,
+        "opt_max": 70,
+        "abs_max": 90,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "temperature": {
+        "abs_min": 15,
+        "opt_min": 22,
+        "opt_max": 30,
+        "abs_max": 38,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [
+        "full",
+        "partial"
+      ],
+      "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+    }
+  },
+  "kangkung": {
+    "display_name": "Kangkung",
+    "params": {
+      "ph": {
+        "abs_min": 4.5,
+        "opt_min": 5.5,
+        "opt_max": 7.0,
+        "abs_max": 8.0,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "moisture": {
+        "abs_min": 40,
+        "opt_min": 60,
+        "opt_max": 90,
+        "abs_max": 100,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "temperature": {
+        "abs_min": 18,
+        "opt_min": 24,
+        "opt_max": 32,
+        "abs_max": 38,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [
+        "full",
+        "partial"
+      ],
+      "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+    }
+  },
+  "bayam": {
+    "display_name": "Bayam",
+    "params": {
+      "ph": {
+        "abs_min": 5.0,
+        "opt_min": 6.0,
+        "opt_max": 7.5,
+        "abs_max": 8.5,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "moisture": {
+        "abs_min": 35,
+        "opt_min": 50,
+        "opt_max": 75,
+        "abs_max": 90,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "temperature": {
+        "abs_min": 10,
+        "opt_min": 16,
+        "opt_max": 26,
+        "abs_max": 35,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [
+        "full",
+        "partial"
+      ],
+      "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+    }
+  },
+  "tomat": {
+    "display_name": "Tomat",
+    "params": {
+      "ph": {
+        "abs_min": 4.8,
+        "opt_min": 5.8,
+        "opt_max": 6.8,
+        "abs_max": 8.0,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "moisture": {
+        "abs_min": 30,
+        "opt_min": 50,
+        "opt_max": 70,
+        "abs_max": 90,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "temperature": {
+        "abs_min": 12,
+        "opt_min": 20,
+        "opt_max": 28,
+        "abs_max": 35,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [
+        "full"
+      ],
+      "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+    }
+  },
+  "selada": {
+    "display_name": "Selada",
+    "params": {
+      "ph": {
+        "abs_min": 5.0,
+        "opt_min": 6.0,
+        "opt_max": 7.0,
+        "abs_max": 8.0,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "moisture": {
+        "abs_min": 35,
+        "opt_min": 55,
+        "opt_max": 75,
+        "abs_max": 90,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "temperature": {
+        "abs_min": 7,
+        "opt_min": 15,
+        "opt_max": 22,
+        "abs_max": 30,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [
+        "full",
+        "partial",
+        "shade"
+      ],
+      "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+    }
+  },
+  "sawi_hijau": {
+    "display_name": "Sawi Hijau",
+    "params": {
+      "ph": {
+        "abs_min": 5.0,
+        "opt_min": 6.0,
+        "opt_max": 7.0,
+        "abs_max": 8.0,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+      },
+      "moisture": {
+        "abs_min": null,
+        "opt_min": null,
+        "opt_max": null,
+        "abs_max": null,
+        "source": null
+      },
+      "temperature": {
+        "abs_min": 10,
+        "opt_min": 18,
+        "opt_max": 28,
+        "abs_max": 35,
+        "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi",
+        "note": "suhu udara"
+      }
+    },
+    "light": {
+      "allowed": [
+        "full",
+        "partial"
+      ],
+      "source": "DEMO: angka contoh pengembangan, BUKAN acuan agronomi"
+    }
+  }
+}
